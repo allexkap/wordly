@@ -2,7 +2,7 @@ from collections import Counter
 from typing import Iterable
 
 
-def check(word, attempt):
+def check(word: str, attempt: str):
     yellow = Counter()
     for w, a in zip(word, attempt):
         if w != a:
@@ -24,7 +24,7 @@ class WordlySolver:
         self.words = sorted(words, key=lambda word: sum(freq[ch] for ch in word))
         self.word = self.words.pop()
 
-    def filter(self, state) -> None:
+    def filter(self, state: str) -> None:
         if state != '':
             self.words = list(
                 filter(
@@ -44,7 +44,8 @@ if __name__ == '__main__':
     solver = WordlySolver(words)
 
     print('1 green; 2 yellow; 3 gray;')
-    while len(solver.words) > 1:
-        print(solver.word, len(solver.words))
-        solver.filter(input())
+    while len(solver.words):
+        print(f'  {solver.word} [{len(solver.words)}]')
+        state = input('> ')
+        solver.filter(state)
     print(solver.word)
