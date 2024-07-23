@@ -18,10 +18,22 @@ def check(word: str, attempt: str):
             yield '3'
 
 
+def sort_words_1(words: Iterable[str]) -> list[str]:
+    freq = Counter(''.join(words))
+    return sorted(words, key=lambda word: sum(freq[ch] for ch in word))
+
+
+def sort_words_2(words: Iterable[str]) -> list[str]:
+    freq = [Counter() for _ in range(5)]
+    for word in words:
+        for i, ch in enumerate(word):
+            freq[i][ch] += 1
+    return sorted(words, key=lambda word: sum(freq[i][ch] for i, ch in enumerate(word)))
+
+
 class WordlySolver:
     def __init__(self, words: Iterable[str]) -> None:
-        freq = Counter(''.join(words))
-        self.words = sorted(words, key=lambda word: sum(freq[ch] for ch in word))
+        self.words = sort_words_2(words)
         self.word = self.words.pop()
 
     def filter(self, state: str) -> None:
