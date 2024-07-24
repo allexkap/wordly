@@ -1,7 +1,7 @@
 import random
 import statistics
 
-from main import WordlySolver, check
+from solver import WordlySolver, check
 
 N = 1000
 
