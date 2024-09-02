@@ -42,7 +42,7 @@ extracted_content = subprocess.run(
 ).stdout.decode()
 
 
-words = set(map(parse, extracted_content.strip().split('\n\n'))) - {''}
+words = sorted(set(map(parse, extracted_content.strip().split('\n\n'))) - {''})
 
 with open(filename, 'w') as file:
     file.write('\n'.join(words))
